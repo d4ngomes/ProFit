@@ -1,0 +1,57 @@
+﻿@model ProFit.Web.Models.ViewModels.AgendamentosPorHoraViewModel
+@{
+    ViewData["Title"] = "Agendamentos";
+    DateTime hoje = DateTime.Now;
+}
+
+<div class="row mt-4 mb-4">
+    <div class="col-md-5">
+        <h2>Agendamentos</h2>
+        <h4>@hoje.ToString("dd/MM/yyy")</h4>
+    </div>
+    <div class="col-md-4">
+        <form asp-action="FiltraPorHorario" method="get">
+            <select class="form-select" onchange="this.form.submit()" asp-for="horaId">
+                <option selected>Filtrar por horário</option>
+                <option value="">Todos</option>
+                @foreach (var item in Model.Horarios)
+                {
+                    <option value="@item.Id">@item.Hora.ToString("HH:mm")</option>
+                }
+            </select>
+        </form>
+    </div>
+</div>
+
+<div class="row mb-5">
+    @foreach (var horario in Model.Horarios)
+    {
+        <div>
+            <h5 class="text-danger">@horario.Hora.ToString("HH:mm")</h5>
+        </div>
+        <div class="row col-md-8 mb-4">
+            @if (Model.Agendamentos.Where(m => m.HoraId == horario.Id && m.Ativo == true).Count() > 0)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-striped border">
+                            <tbody>
+                                @foreach (var item in Model.Agendamentos.Where(m => m.HoraId.Equals(horario.Id)))
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(m => item.Aluno.Nome)</td>
+                                        <td></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p>Nenhum aluno neste horário.</p>
+            }
+        </div>
+    }
+</div>

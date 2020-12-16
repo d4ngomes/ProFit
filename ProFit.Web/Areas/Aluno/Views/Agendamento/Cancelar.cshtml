@@ -1,0 +1,23 @@
+﻿@model ProFit.Web.Models.Agendamento
+
+@{
+    ViewData["Title"] = "Cancelar agendamento";
+}
+
+<div class="row mt-4 mb-4">
+    <div class="col-sm">
+        <h2>Deseja cancelar este agendamento?</h2>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm">
+        <form asp-action="Cancelar" method="post">
+            <div><h5>@Html.DisplayFor(m => m.Data) - @Html.DisplayFor(m => m.Horario.Hora)</h5></div>
+            <hr />
+            <input type="submit" class="btn btn-danger" value="Ok" />
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </form>
+    </div>
+</div>

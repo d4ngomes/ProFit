@@ -1,0 +1,26 @@
+﻿@model ProFit.Web.Models.ViewModels.AgendamentoViewModel
+
+@{
+    ViewData["Title"] = "Marcar horário";
+}
+
+<div class="row mt-4 mb-4">
+    <div class="col-sm">
+        <h2>Agende seu horário</h2>
+        <h5>Selecione uma data</h5>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm">
+        <form asp-action="VerificaData" method="post">
+            <input type="submit" class="btn btn-outline-danger btn-lg mt-1" name="data" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+            <input type="submit" class="btn btn-outline-danger btn-lg mt-1" name="data" value="@DateTime.Now.AddDays(1).ToString("dd/MM/yyyy")" />
+            @if ((int)DateTime.Now.DayOfWeek == 6 && !Model.AbreDomingo)
+            {
+                <input type="submit" class="btn btn-outline-danger btn-lg mt-1" name="data" value="@DateTime.Now.AddDays(2).ToString("dd/MM/yyyy")" />
+            }
+        </form>
+    </div>
+</div>

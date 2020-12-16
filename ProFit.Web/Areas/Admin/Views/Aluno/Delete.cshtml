@@ -1,0 +1,50 @@
+﻿@model ProFit.Web.Models.Aluno
+
+@{
+    ViewData["Title"] = "Deletar Aluno";
+}
+
+<div class="row mt-4">
+    <h2>Deseja deletar este cadastro?</h2>
+</div>
+
+<div class="row col-6 mb-5">
+    <form asp-action="Delete" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label class="form-label" asp-for="Nome"></label>
+            <input type="text" class="form-control" placeholder="Digite o nome" asp-for="Nome" readonly>
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" asp-for="Email"></label>
+            <input type="email" class="form-control" placeholder="Digite o e-mail" asp-for="Email" readonly>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" asp-for="Cpf"></label>
+            <input type="number" class="form-control" placeholder="Digite o CPF. Somente Números." asp-for="Cpf" readonly>
+            <span asp-validation-for="Cpf" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" asp-for="DataNascimento"></label>
+            <input type="date" class="form-control" placeholder="Data de Nascimento" asp-for="DataNascimento" readonly>
+            <span asp-validation-for="DataNascimento" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <input class="form-check-input" asp-for="Ativo" type="checkbox" disabled>
+            <label class="form-check-label" asp-for="Ativo"></label>
+        </div>
+        <div class="mb-3">
+            <input type="hidden" name="Id" asp-for="@Model.Id" />
+            <input class="btn btn-danger" type="submit" value="Deletar" />
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

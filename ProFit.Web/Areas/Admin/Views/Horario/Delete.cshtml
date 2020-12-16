@@ -1,0 +1,31 @@
+﻿@model ProFit.Web.Models.Horario
+
+@{
+    ViewData["Title"] = "Deletar Horário";
+}
+
+<div class="row mt-4">
+    <h2>Deseja deletar este registro?</h2>
+</div>
+
+<div class="row col-3">
+    <form asp-action="Delete" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label class="form-label" asp-for="Hora"></label>
+            <input type="time" class="form-control" asp-for="Hora" readonly>
+            <span asp-validation-for="Hora" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <input type="hidden" name="Id" asp-for="@Model.Id" />
+            <input class="btn btn-danger" type="submit" value="Deletar" />
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

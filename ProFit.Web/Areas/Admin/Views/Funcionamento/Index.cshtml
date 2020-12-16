@@ -1,0 +1,85 @@
+﻿@model ProFit.Web.Models.Funcionamento
+
+@{
+    ViewData["Title"] = "Funcionamento";
+}
+
+<div class="row mt-4 mb-4">
+    <div class="col-sm">
+        <h2>Funcionamento</h2>
+    </div>
+    <div class="col-sm">
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Alterar regras</a>
+    </div>
+</div>
+
+@if (TempData["Msg"] != null)
+{
+    <div class="row mt-4 mb-4 col-md-6">
+        <div class="alert alert-success" role="alert">
+            @TempData["Msg"]
+        </div>
+    </div>
+}
+
+<div class="row col-md-6 mb-5">
+    <div class="card">
+        <div class="card-body">
+            <table class="table border">
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.Vagas)</td>
+                        <td>@Html.DisplayFor(m => m.Vagas)</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2"><b>Durante a semana:</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.HoraInicioSemana)</td>
+                        <td>@Html.DisplayFor(m => m.HoraInicioSemana)</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.HoraFimSemana)</td>
+                        <td>@Html.DisplayFor(m => m.HoraFimSemana)</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2"><b>Sábado:</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.HoraInicioSabado)</td>
+                        <td>@Html.DisplayFor(m => m.HoraInicioSabado)</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.HoraFimSabado)</td>
+                        <td>@Html.DisplayFor(m => m.HoraFimSabado)</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2"><b>Domingo:</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.HoraInicioDomingo)</td>
+                        <td>@Html.DisplayFor(m => m.HoraInicioDomingo)</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.HoraFimDomingo)</td>
+                        <td>@Html.DisplayFor(m => m.HoraFimDomingo)</td>
+                    </tr>
+
+                    <tr>
+                        <td><span>Abre domingo: </span></td>
+                        <td>@(Model.AbreDomingo ? "Sim" : "Não")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

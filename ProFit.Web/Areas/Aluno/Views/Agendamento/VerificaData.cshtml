@@ -1,0 +1,122 @@
+﻿@model ProFit.Web.Models.ViewModels.AgendamentoViewModel
+
+@{
+    ViewData["Title"] = "Marcar horário";
+}
+
+<div class="row mt-4 mb-4">
+    <div class="col-sm">
+        <h2>Agende seu horário</h2>
+        <h5>Selecione uma data</h5>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm">
+        <form asp-action="VerificaData" method="post">
+            <input type="submit" class="btn btn-outline-danger btn-lg mt-1" name="data" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+            <input type="submit" class="btn btn-outline-danger btn-lg mt-1" name="data" value="@DateTime.Now.AddDays(1).ToString("dd/MM/yyyy")" />
+            @if ((int)DateTime.Now.DayOfWeek == 6 && !Model.AbreDomingo)
+            {
+                <input type="submit" class="btn btn-outline-danger btn-lg mt-1" name="data" value="@DateTime.Now.AddDays(2).ToString("dd/MM/yyyy")" />
+            }
+        </form>
+    </div>
+</div>
+
+<div class="row mb-5">
+    @if (Model.Agendado)
+    {
+        <div class="row mt-5">
+            <div class="col-sm">
+                <h5>Já existe horário agendado para o dia <span class="text-danger">@Html.DisplayFor(m => m.DataEscolhida)</span>.</h5>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-sm">
+                <a class="btn btn-success" asp-action="Index">Ver Agendamentos</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        if ((Model.DataEscolhida.Date == DateTime.Now.Date && DateTime.Now.TimeOfDay > Model.HoraFim.TimeOfDay) || Model.isFeriado
+            || ((int)Model.DataEscolhida.DayOfWeek == 0 && !Model.AbreDomingo))
+        {
+            <div class="row mt-5">
+                <div class="col-sm">
+                    <span class="text-dark">Nenhum horário disponível.</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row mt-5">
+                <div class="col">
+                    <h5>Escolha um horário para o dia <span class="text-danger">@Html.DisplayFor(m => m.DataEscolhida)</span> e clique em agendar.</h5>
+                    <hr />
+                </div>
+            </div>
+
+            <form asp-action="Create" method="post">
+                <input type="hidden" name="data" value="@Model.DataEscolhida.Date" />
+                <div class="row">
+                    <div class="col-md-2 mb-1">
+
+                        @foreach (var item in Model.Horario)
+                        {
+                            if (Model.DataEscolhida.Date == DateTime.Now.Date)
+                            {
+                                if (item.Hora.TimeOfDay > DateTime.Now.TimeOfDay
+                                    && item.Hora.TimeOfDay >= Model.HoraInicio.TimeOfDay && item.Hora.TimeOfDay <= Model.HoraFim.TimeOfDay)
+                                {
+
+                                    <div class="btn-group-vertical">
+                                        @if (Model.VerificaHorario(item.Id))
+                                        {
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="horaId" value="@item.Id" disabled> @Html.DisplayFor(m => item.Hora) <span> - Esgotado</span>
+                                            </label>
+                                        }
+                                        else
+                                        {
+                                            <label class="btn btn-warning">
+                                                <input type="radio" name="horaId" value="@item.Id"> @Html.DisplayFor(m => item.Hora)
+                                            </label>
+                                        }
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                if (item.Hora.TimeOfDay >= Model.HoraInicio.TimeOfDay && item.Hora.TimeOfDay <= Model.HoraFim.TimeOfDay)
+                                {
+
+                                    <div class="btn-group-vertical">
+                                        @if (Model.VerificaHorario(item.Id))
+                                        {
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="horaId" value="@item.Id" disabled> @Html.DisplayFor(m => item.Hora) <span> - Esgotado</span>
+                                            </label>
+                                        }
+                                        else
+                                        {
+                                            <label class="btn btn-warning">
+                                                <input type="radio" name="horaId" value="@item.Id"> @Html.DisplayFor(m => item.Hora)
+                                            </label>
+                                        }
+                                    </div>
+                                }
+                            }
+                        }
+
+                    </div>
+                    <div class="col-2 mb-5">
+                        <input class="btn btn-primary btn-lg" type="submit" value="Agendar horário" />
+                    </div>
+                </div>
+            </form>
+        }
+    }
+</div>

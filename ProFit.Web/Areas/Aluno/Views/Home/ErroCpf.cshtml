@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Erro";
+}
+
+<div class="row mt-4">
+    <h1>@TempData["ErroCpf"]</h1>
+    <h4 class="mb-3">Entre em contato com a recepção para verificar seu cadastro.</h4>
+    <hr />
+    <div class="row mt-2">
+        <div class="col-md-4">
+            <a class="btn btn-primary" asp-area="Aluno" asp-controller="Home" asp-action="Index">Voltar</a>
+        </div>
+    </div>
+</div>

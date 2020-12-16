@@ -1,0 +1,92 @@
+﻿@model ProFit.Web.Models.Funcionamento
+
+@{
+    ViewData["Title"] = "Editar funcionamento";
+}
+
+<div class="row mt-4">
+    <h2>Editar funcionamento</h2>
+</div>
+
+<div class="col-md-6 mb-5">
+    <form asp-action="Edit" method="post">
+        <div class="row mb-3">
+            <div class="col-2">
+                <label class="form-label" asp-for="Vagas"></label>
+                <input type="number" class="form-control" asp-for="Vagas">
+                <span asp-validation-for="Vagas" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"><hr /></div>
+        </div>
+        <div class="row">
+            <div class="col"><h5><b>Durante a semana:</b></h5></div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label" asp-for="HoraInicioSemana"></label>
+                <input type="time" class="form-control" asp-for="HoraInicioSemana">
+                <span asp-validation-for="HoraInicioSemana" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label class="form-label" asp-for="HoraFimSemana"></label>
+                <input type="time" class="form-control" asp-for="HoraFimSemana">
+                <span asp-validation-for="HoraFimSemana" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"><h5><b>Sábado:</b></h5></div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label" asp-for="HoraInicioSabado"></label>
+                <input type="time" class="form-control" asp-for="HoraInicioSabado">
+                <span asp-validation-for="HoraInicioSabado" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label class="form-label" asp-for="HoraFimSabado"></label>
+                <input type="time" class="form-control" asp-for="HoraFimSabado">
+                <span asp-validation-for="HoraFimSabado" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"><h5><b>Domingo:</b></h5></div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label" asp-for="HoraInicioDomingo"></label>
+                <input type="time" class="form-control" asp-for="HoraInicioDomingo">
+                <span asp-validation-for="HoraInicioDomingo" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label class="form-label" asp-for="HoraFimDomingo"></label>
+                <input type="time" class="form-control" asp-for="HoraFimDomingo">
+                <span asp-validation-for="HoraFimDomingo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="AbreDomingo"></label>
+                <input type="checkbox" class="custom-checkbox" asp-for="AbreDomingo" />
+                <span asp-validation-for="AbreDomingo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"><hr /></div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <input type="hidden" name="Id" asp-for="@Model.Id" />
+                <input class="btn btn-danger" type="submit" value="Salvar" />
+                <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

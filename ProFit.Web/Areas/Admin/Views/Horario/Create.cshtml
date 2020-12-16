@@ -1,0 +1,39 @@
+﻿@model ProFit.Web.Models.Horario
+
+@{
+    ViewData["Title"] = "Cadastrar Horário";
+}
+
+<div class="row mt-4">
+    <h2>Cadastrar Horário</h2>
+</div>
+
+@if (TempData["Msg"] != null)
+{
+    <div class="row mt-4 col-md-3">
+        <div class="alert alert-danger" role="alert">
+            @TempData["Msg"]
+        </div>
+    </div>
+}
+
+<div class="row col-3">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label class="form-label" asp-for="Hora"></label>
+            <input type="time" class="form-control" asp-for="Hora">
+            <span asp-validation-for="Hora" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-danger" type="submit" value="Salvar" />
+            <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

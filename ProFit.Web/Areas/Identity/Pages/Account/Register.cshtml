@@ -1,0 +1,50 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Cadastre-se";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row mb-4">
+    <div class="col-md-4 mb-4">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>Criar uma nova conta.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" name="Cpf" value="@(Request.Query["Cpf"].Count() > 0 ? Request.Query["Cpf"] : Request.Form["Cpf"])" />
+            <input type="hidden" name="Nome" value="@(Request.Query["Nome"].Count() > 0 ? Request.Query["Nome"] : Request.Form["Nome"])" />
+            <input type="hidden" name="Email" value="@(Request.Query["Email"].Count() > 0 ? Request.Query["Email"] : Request.Form["Email"])" />
+            <div class="form-group">
+                <label asp-for="Input.Cpf"></label>
+                <input type="text" asp-for="Input.Cpf" value="@(Request.Query["Cpf"].Count() > 0 ? Request.Query["Cpf"] : Request.Form["Cpf"])" class="form-control" readonly />
+                <span asp-validation-for="Input.Cpf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Nome"></label>
+                <input asp-for="Input.Nome" value="@(Request.Query["Nome"].Count() > 0 ? Request.Query["Nome"] : Request.Form["Nome"])" class="form-control" readonly />
+                <span asp-validation-for="Input.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" value="@(Request.Query["Email"].Count() > 0 ? Request.Query["Email"] : Request.Form["Email"])" class="form-control" readonly />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Confirme sua senha</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-1">Salvar</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
